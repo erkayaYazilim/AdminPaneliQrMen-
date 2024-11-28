@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Paneli - Erkaya Yazılım Ofisi QR Menü</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS dosyası -->
+    <link rel="stylesheet" href="admin-style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- İkonlar için Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- Giriş Yapma -->
+    <div id="loginDiv" class="login-container">
+        <h2>Erkaya Yazılım Ofisi Admin Girişi</h2>
+        <input type="email" id="email" placeholder="E-posta">
+        <input type="password" id="password" placeholder="Şifre">
+        <button onclick="login()">Giriş Yap</button>
+    </div>
+
+    <!-- Admin Paneli İçeriği -->
+    <div id="adminContent" style="display:none;">
+        <h1>Erkaya Yazılım Ofisi Admin Paneli</h1>
+        <button onclick="logout()" class="logout-button">Çıkış Yap</button>
+
+        <!-- Kategori Yönetimi -->
+        <h2>Kategoriler</h2>
+        <div id="categoriesList">
+            <ul id="sortableCategories"></ul>
+        </div>
+        
+        <h3>Yeni Kategori Ekle</h3>
+        <form id="newCategoryForm">
+            <h4>Kategori İsmi</h4>
+            <input type="text" id="categoryName_tr" placeholder="Kategori Adı" required>
+            <h4>Kategori Resmi</h4>
+            <input type="file" id="categoryImage" accept="image/*" required>
+            <!-- Kategori resmi önizleme -->
+            <img id="categoryImagePreview" src="#" alt="Kategori Resmi" style="display: none; max-width: 200px; margin-top: 10px;">
+            <!-- İlerleme çubuğu -->
+            <div class="progress-bar" id="categoryProgressBar" style="display: none;">
+                <div class="progress-bar-fill" id="categoryProgressBarFill">0%</div>
+            </div>
+            <button type="submit">Kategori Ekle</button>
+        </form>
+
+        <!-- Ürün Yönetimi -->
+        <h2>Ürünler</h2>
+        <!-- Kategorilere Göre Ürünleri Listele -->
+        <div id="productFilter">
+            <label for="filterCategory">Kategori Seçin:</label>
+            <select id="filterCategory">
+                <option value="">Hepsi</option>
+            </select>
+        </div>
+        <div id="productsList"></div>
+
+        <h3>Yeni Ürün Ekle</h3>
+        <form id="newProductForm">
+            <h4>Ürün İsmi</h4>
+            <input type="text" id="productName_tr" placeholder="Ürün İsmi" required>
+            <h4>Ürün Açıklaması</h4>
+            <input type="text" id="productDesc_tr" placeholder="Ürün Açıklaması" required>
+            <input type="number" id="productPrice" placeholder="Fiyat" required>
+            <select id="productCategory" required>
+                <option value="">Kategori Seçin</option>
+            </select>
+            <h4>Ürün Resmi</h4>
+            <input type="file" id="fileElem" accept="image/*" required>
+            <!-- Ürün resmi önizleme -->
+            <img id="productImagePreview" src="#" alt="Ürün Resmi" style="display: none; max-width: 200px; margin-top: 10px;">
+            <!-- İlerleme çubuğu -->
+            <div class="progress-bar" id="productProgressBar" style="display: none;">
+                <div class="progress-bar-fill" id="productProgressBarFill">0%</div>
+            </div>
+            <button type="submit">Ürün Ekle</button>
+        </form>
+
+        <!-- Ürün Güncelleme Modalı -->
+        <div id="updateProductModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h3>Ürünü Güncelle</h3>
+                <form id="updateProductForm">
+                    <input type="hidden" id="updateProductId">
+                    <h4>Ürün İsmi</h4>
+                    <input type="text" id="updateProductName_tr" placeholder="Ürün İsmi" required>
+                    <h4>Ürün Açıklaması</h4>
+                    <input type="text" id="updateProductDesc_tr" placeholder="Ürün Açıklaması" required>
+                    <input type="number" id="updateProductPrice" placeholder="Fiyat" required>
+                    <select id="updateProductCategory" required>
+                        <option value="">Kategori Seçin</option>
+                    </select>
+                    <h4>Ürün Resmi</h4>
+                    <input type="file" id="updateFileElem" accept="image/*">
+                    <!-- Ürün resmi önizleme -->
+                    <img id="updateProductImagePreview" src="#" alt="Ürün Resmi" style="display: none; max-width: 200px; margin-top: 10px;">
+                    <!-- İlerleme çubuğu -->
+                    <div class="progress-bar" id="updateProgressBar" style="display: none;">
+                        <div class="progress-bar-fill" id="updateProgressBarFill">0%</div>
+                    </div>
+                    <button type="submit">Güncelle</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- SortableJS Kütüphanesi -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+    <!-- JavaScript kodu -->
+    <script src="admin-script.js"></script>
+</body>
+</html>

@@ -107,9 +107,36 @@
             </div>
         </div>
 
+        <!-- Kategori Güncelleme Modalı -->
+        <div id="updateCategoryModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" id="closeCategoryModal">&times;</span>
+                <h3>Kategoriyi Güncelle</h3>
+                <form id="updateCategoryForm">
+                    <input type="hidden" id="updateCategoryId">
+                    <h4>Kategori İsmi</h4>
+                    <input type="text" id="updateCategoryName_tr" placeholder="Kategori İsmi" required>
+                    <h4>Kategori Resmi</h4>
+                    <input type="file" id="updateCategoryImage" accept="image/*">
+                    <!-- Kategori resmi önizleme -->
+                    <img id="updateCategoryImagePreview" src="#" alt="Kategori Resmi" style="display: none; max-width: 200px; margin-top: 10px;">
+                    <!-- İlerleme çubuğu -->
+                    <div class="progress-bar" id="updateCategoryProgressBar" style="display: none;">
+                        <div class="progress-bar-fill" id="updateCategoryProgressBarFill">0%</div>
+                    </div>
+                    <h4>Durum</h4>
+                    <select id="updateCategoryStatus" required>
+                        <option value="active">Aktif</option>
+                        <option value="inactive">Askıya Al</option>
+                    </select>
+                    <button type="submit">Güncelle</button>
+                </form>
+            </div>
+        </div>
+
     </div>
     <!-- SortableJS Kütüphanesi -->
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
     <!-- Firebase JS SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>

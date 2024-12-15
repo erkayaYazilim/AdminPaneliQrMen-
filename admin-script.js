@@ -1,4 +1,3 @@
-// Firebase yapılandırması
 const firebaseConfig = {
     apiKey: "AIzaSyA16M_6xOrUGEn9YCdzIFxBYXr-9ST7IWY",
     authDomain: "qrmenuapplication-9b920.firebaseapp.com",
@@ -128,17 +127,17 @@ function loadCategories() {
             if (categoryStatus === 'active') {
                 const option = document.createElement('option');
                 option.value = categoryId;
-                option.textContent = categoryName;
+                option.textContent = category.name_tr;
                 productCategorySelect.appendChild(option);
 
                 const filterOption = document.createElement('option');
                 filterOption.value = categoryId;
-                filterOption.textContent = categoryName;
+                filterOption.textContent = category.name_tr;
                 filterCategorySelect.appendChild(filterOption);
 
                 const updateOption = document.createElement('option');
                 updateOption.value = categoryId;
-                updateOption.textContent = categoryName;
+                updateOption.textContent = category.name_tr;
                 updateProductCategorySelect.appendChild(updateOption);
             }
         });
@@ -165,6 +164,7 @@ function updateCategoryOrder(evt) {
 document.getElementById('newCategoryForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const name_tr = document.getElementById('categoryName_tr').value;
+    const name_en = document.getElementById('categoryName_en').value; // İngilizce kategori ismi
     const categoryImageFile = document.getElementById('categoryImage').files[0];
 
     // İlerleme çubuğunu göster
@@ -197,6 +197,7 @@ document.getElementById('newCategoryForm').addEventListener('submit', function(e
                         const newCategoryKey = database.ref().child('Categories').push().key;
                         database.ref('Categories/' + newCategoryKey).set({
                             name_tr: name_tr,
+                            name_en: name_en, // İngilizce ismi kayıt et
                             imageUrl: url,
                             order: categoryCount, // Yeni kategori en sona eklenir
                             status: 'active' // Varsayılan olarak aktif
@@ -249,6 +250,7 @@ function openUpdateCategoryModal(categoryId) {
 
         document.getElementById('updateCategoryId').value = categoryId;
         document.getElementById('updateCategoryName_tr').value = category.name_tr;
+        document.getElementById('updateCategoryName_en').value = category.name_en || ''; // İngilizce ismi doldur
         document.getElementById('updateCategoryStatus').value = category.status || 'active';
 
         // Mevcut kategori resmini önizleme olarak göster
@@ -276,6 +278,7 @@ document.getElementById('updateCategoryForm').addEventListener('submit', functio
     e.preventDefault();
     const categoryId = document.getElementById('updateCategoryId').value;
     const name_tr = document.getElementById('updateCategoryName_tr').value;
+    const name_en = document.getElementById('updateCategoryName_en').value; // İngilizce kategori ismi
     const status = document.getElementById('updateCategoryStatus').value;
     const categoryImageFile = document.getElementById('updateCategoryImage').files[0];
 
@@ -304,7 +307,7 @@ document.getElementById('updateCategoryForm').addEventListener('submit', functio
                 },
                 () => {
                     uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-                        updateCategory(categoryId, name_tr, url, status);
+                        updateCategory(categoryId, name_tr, name_en, url, status);
                     });
                 }
             );
@@ -313,14 +316,15 @@ document.getElementById('updateCategoryForm').addEventListener('submit', functio
         // Resim değişmeyecekse
         database.ref('Categories/' + categoryId).once('value', (snapshot) => {
             const category = snapshot.val();
-            updateCategory(categoryId, name_tr, category.imageUrl, status);
+            updateCategory(categoryId, name_tr, name_en, category.imageUrl, status);
         });
     }
 });
 
-function updateCategory(categoryId, name_tr, imageUrl, status) {
+function updateCategory(categoryId, name_tr, name_en, imageUrl, status) {
     database.ref('Categories/' + categoryId).update({
         name_tr: name_tr,
+        name_en: name_en,
         imageUrl: imageUrl,
         status: status
     }).then(() => {
@@ -388,7 +392,9 @@ document.getElementById('filterCategory').addEventListener('change', loadProduct
 document.getElementById('newProductForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const name_tr = document.getElementById('productName_tr').value;
+    const name_en = document.getElementById('productName_en').value; // İngilizce ürün ismi
     const description_tr = document.getElementById('productDesc_tr').value;
+    const description_en = document.getElementById('productDesc_en').value; // İngilizce ürün açıklaması
     const price = document.getElementById('productPrice').value;
     const categoryId = document.getElementById('productCategory').value;
     const productImageFile = document.getElementById('fileElem').files[0];
@@ -420,7 +426,9 @@ document.getElementById('newProductForm').addEventListener('submit', function(e)
                     const newProductKey = database.ref().child('Products').push().key;
                     database.ref('Products/' + newProductKey).set({
                         name_tr: name_tr,
+                        name_en: name_en,
                         description_tr: description_tr,
+                        description_en: description_en,
                         price: price,
                         categoryId: categoryId,
                         imageUrl: url
@@ -461,7 +469,9 @@ function openUpdateModal(productId) {
 
         document.getElementById('updateProductId').value = productId;
         document.getElementById('updateProductName_tr').value = product.name_tr;
+        document.getElementById('updateProductName_en').value = product.name_en || '';
         document.getElementById('updateProductDesc_tr').value = product.description_tr;
+        document.getElementById('updateProductDesc_en').value = product.description_en || '';
         document.getElementById('updateProductPrice').value = product.price;
         document.getElementById('updateProductCategory').value = product.categoryId;
 
@@ -495,7 +505,9 @@ document.getElementById('updateProductForm').addEventListener('submit', function
     e.preventDefault();
     const productId = document.getElementById('updateProductId').value;
     const name_tr = document.getElementById('updateProductName_tr').value;
+    const name_en = document.getElementById('updateProductName_en').value;
     const description_tr = document.getElementById('updateProductDesc_tr').value;
+    const description_en = document.getElementById('updateProductDesc_en').value;
     const price = document.getElementById('updateProductPrice').value;
     const categoryId = document.getElementById('updateProductCategory').value;
     const productImageFile = document.getElementById('updateFileElem').files[0];
@@ -525,7 +537,7 @@ document.getElementById('updateProductForm').addEventListener('submit', function
                 },
                 () => {
                     uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-                        updateProduct(productId, name_tr, description_tr, price, categoryId, url);
+                        updateProduct(productId, name_tr, name_en, description_tr, description_en, price, categoryId, url);
                     });
                 }
             );
@@ -534,15 +546,17 @@ document.getElementById('updateProductForm').addEventListener('submit', function
         // Resim değişmeyecekse
         database.ref('Products/' + productId).once('value', (snapshot) => {
             const product = snapshot.val();
-            updateProduct(productId, name_tr, description_tr, price, categoryId, product.imageUrl);
+            updateProduct(productId, name_tr, name_en, description_tr, description_en, price, categoryId, product.imageUrl);
         });
     }
 });
 
-function updateProduct(productId, name_tr, description_tr, price, categoryId, imageUrl) {
+function updateProduct(productId, name_tr, name_en, description_tr, description_en, price, categoryId, imageUrl) {
     database.ref('Products/' + productId).set({
         name_tr: name_tr,
+        name_en: name_en,
         description_tr: description_tr,
+        description_en: description_en,
         price: price,
         categoryId: categoryId,
         imageUrl: imageUrl

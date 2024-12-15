@@ -34,8 +34,12 @@
         
         <h3>Yeni Kategori Ekle</h3>
         <form id="newCategoryForm">
-            <h4>Kategori İsmi</h4>
-            <input type="text" id="categoryName_tr" placeholder="Kategori Adı" required>
+            <h4>Kategori İsmi (TR)</h4>
+            <input type="text" id="categoryName_tr" placeholder="Kategori Adı (TR)" required>
+            <!-- Yeni: İngilizce Kategori İsmi -->
+            <h4>Kategori İsmi (EN)</h4>
+            <input type="text" id="categoryName_en" placeholder="Kategori Adı (EN)" required>
+
             <h4>Kategori Resmi</h4>
             <input type="file" id="categoryImage" accept="image/*" required>
             <!-- Kategori resmi önizleme -->
@@ -60,10 +64,18 @@
 
         <h3>Yeni Ürün Ekle</h3>
         <form id="newProductForm">
-            <h4>Ürün İsmi</h4>
-            <input type="text" id="productName_tr" placeholder="Ürün İsmi" required>
-            <h4>Ürün Açıklaması</h4>
-            <input type="text" id="productDesc_tr" placeholder="Ürün Açıklaması" required>
+            <h4>Ürün İsmi (TR)</h4>
+            <input type="text" id="productName_tr" placeholder="Ürün İsmi (TR)" required>
+            <!-- Yeni: İngilizce Ürün İsmi -->
+            <h4>Ürün İsmi (EN)</h4>
+            <input type="text" id="productName_en" placeholder="Ürün İsmi (EN)" required>
+
+            <h4>Ürün Açıklaması (TR)</h4>
+            <input type="text" id="productDesc_tr" placeholder="Ürün Açıklaması (TR)" required>
+            <!-- Yeni: İngilizce Ürün Açıklaması -->
+            <h4>Ürün Açıklaması (EN)</h4>
+            <input type="text" id="productDesc_en" placeholder="Ürün Açıklaması (EN)" required>
+
             <input type="number" id="productPrice" placeholder="Fiyat" required>
             <select id="productCategory" required>
                 <option value="">Kategori Seçin</option>
@@ -86,10 +98,18 @@
                 <h3>Ürünü Güncelle</h3>
                 <form id="updateProductForm">
                     <input type="hidden" id="updateProductId">
-                    <h4>Ürün İsmi</h4>
-                    <input type="text" id="updateProductName_tr" placeholder="Ürün İsmi" required>
-                    <h4>Ürün Açıklaması</h4>
-                    <input type="text" id="updateProductDesc_tr" placeholder="Ürün Açıklaması" required>
+                    <h4>Ürün İsmi (TR)</h4>
+                    <input type="text" id="updateProductName_tr" placeholder="Ürün İsmi (TR)" required>
+                    <!-- Yeni: İngilizce Ürün İsmi -->
+                    <h4>Ürün İsmi (EN)</h4>
+                    <input type="text" id="updateProductName_en" placeholder="Ürün İsmi (EN)" required>
+
+                    <h4>Ürün Açıklaması (TR)</h4>
+                    <input type="text" id="updateProductDesc_tr" placeholder="Ürün Açıklaması (TR)" required>
+                    <!-- Yeni: İngilizce Ürün Açıklaması -->
+                    <h4>Ürün Açıklaması (EN)</h4>
+                    <input type="text" id="updateProductDesc_en" placeholder="Ürün Açıklaması (EN)" required>
+
                     <input type="number" id="updateProductPrice" placeholder="Fiyat" required>
                     <select id="updateProductCategory" required>
                         <option value="">Kategori Seçin</option>
@@ -114,8 +134,12 @@
                 <h3>Kategoriyi Güncelle</h3>
                 <form id="updateCategoryForm">
                     <input type="hidden" id="updateCategoryId">
-                    <h4>Kategori İsmi</h4>
-                    <input type="text" id="updateCategoryName_tr" placeholder="Kategori İsmi" required>
+                    <h4>Kategori İsmi (TR)</h4>
+                    <input type="text" id="updateCategoryName_tr" placeholder="Kategori İsmi (TR)" required>
+                    <!-- Yeni: İngilizce Kategori İsmi -->
+                    <h4>Kategori İsmi (EN)</h4>
+                    <input type="text" id="updateCategoryName_en" placeholder="Kategori İsmi (EN)" required>
+
                     <h4>Kategori Resmi</h4>
                     <input type="file" id="updateCategoryImage" accept="image/*">
                     <!-- Kategori resmi önizleme -->
